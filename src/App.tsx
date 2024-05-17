@@ -106,6 +106,22 @@ function App() {
           <InstagramIcon sx={{ fontSize: 35 }} />
         </Box>
       </Box>
+      <Box className="attribution">
+        <p style={{ color: "#FF0064" }}>
+          Coded by
+          <a
+            href="https://github.com/htetngengeko"
+            style={{
+              color: "white",
+              backgroundColor: "transparent",
+              textDecoration: "none",
+            }}
+          >
+            {" "}
+            HtetNge
+          </a>
+        </p>
+      </Box>
     </Box>
   );
 }
