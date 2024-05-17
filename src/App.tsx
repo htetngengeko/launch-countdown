@@ -2,12 +2,23 @@ import FacebookIcon from "@mui/icons-material/Facebook";
 import InstagramIcon from "@mui/icons-material/Instagram";
 import PinterestIcon from "@mui/icons-material/Pinterest";
 import { Box } from "@mui/material";
+import { useEffect, useState } from "react";
 import Card from "./components/Card";
 import bgStars from "./images/bg-stars.svg";
 import hills from "./images/pattern-hills.svg";
 import "./index.css";
 
 function App() {
+  const [currDate, setCurrDate] = useState(new Date());
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrDate(new Date());
+    }, 1000);
+
+    return () => clearInterval(interval);
+  }, []);
+
   return (
     <Box
       sx={{
@@ -50,10 +61,22 @@ function App() {
             width: "75%",
           }}
         >
-          <Card label={"DAYS"} n1={40} n2={40} />
-          <Card label={"HOURS"} n1={2} n2={2} />
-          <Card label={"MINUTES"} n1={3} n2={3} />
-          <Card label={"SECONDS"} n1={1} n2={1} />
+          <Card label={"DAYS"} n1={currDate.getDay()} n2={currDate.getDay()} />
+          <Card
+            label={"HOURS"}
+            n1={currDate.getHours()}
+            n2={currDate.getHours()}
+          />
+          <Card
+            label={"MINUTES"}
+            n1={currDate.getMinutes()}
+            n2={currDate.getMinutes()}
+          />
+          <Card
+            label={"SECONDS"}
+            n1={currDate.getSeconds()}
+            n2={currDate.getSeconds()}
+          />
         </Box>
       </Box>
       <Box
