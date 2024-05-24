@@ -9,15 +9,31 @@ import hills from "./images/pattern-hills.svg";
 import "./index.css";
 
 function App() {
-  const [currDate, setCurrDate] = useState(new Date());
+  const launchDate = new Date("June 7 2024 23:59:59").getTime();
+  const [timeRemaining, setTimeRemaining] = useState(
+    calculateTimeRemaining(launchDate)
+  );
 
   useEffect(() => {
     const interval = setInterval(() => {
-      setCurrDate(new Date());
+      setTimeRemaining(calculateTimeRemaining(launchDate));
     }, 1000);
-
     return () => clearInterval(interval);
-  }, []);
+  }, [timeRemaining]);
+
+  function calculateTimeRemaining(launchDate: number) {
+    const currDate = new Date().getTime();
+    const distance = launchDate - currDate;
+
+    const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+    const hours = Math.floor(
+      (distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)
+    );
+    const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+    const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+    return { days, hours, minutes, seconds };
+  }
 
   return (
     <Box
@@ -61,21 +77,25 @@ function App() {
             width: "75%",
           }}
         >
-          <Card label={"DAYS"} n1={currDate.getDay()} n2={currDate.getDay()} />
+          <Card
+            label={"DAYS"}
+            n1={timeRemaining.days}
+            n2={timeRemaining.days}
+          />
           <Card
             label={"HOURS"}
-            n1={currDate.getHours()}
-            n2={currDate.getHours()}
+            n1={timeRemaining.hours}
+            n2={timeRemaining.hours}
           />
           <Card
             label={"MINUTES"}
-            n1={currDate.getMinutes()}
-            n2={currDate.getMinutes()}
+            n1={timeRemaining.minutes}
+            n2={timeRemaining.minutes}
           />
           <Card
             label={"SECONDS"}
-            n1={currDate.getSeconds()}
-            n2={currDate.getSeconds()}
+            n1={timeRemaining.seconds}
+            n2={timeRemaining.seconds}
           />
         </Box>
       </Box>
